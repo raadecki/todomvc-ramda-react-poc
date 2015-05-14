@@ -1,0 +1,10 @@
+{
+    "esnext": true,
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "jasmine": true,
+    "globals": {
+        "System": true
+    }
+}
