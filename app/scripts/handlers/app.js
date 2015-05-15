@@ -12,14 +12,15 @@ import {
     disableEditInAllTodos
 } from 'logic/todo';
 
-var propsLens = R.lensProp('props');
+var dataLens = R.lensProp('props');
 
-var todosLens = R.pipeL(
-    propsLens,
+export var todosLens = R.pipeL(
+    dataLens,
     R.lensProp('todos')
 );
+
 export var storedTodosLens = R.pipeL(
-    propsLens,
+    dataLens,
     R.lensProp('storedTodos')
 );
 
@@ -55,6 +56,11 @@ var editTodoInputLens = (obj, idx) => R.pipeL(
     editTodoLens
 )(obj);
 
+//now it will be easy to switch between props and state
+function applyToReact(props) {
+    return this.setProps(props);
+}
+
 //condition handlers namespace
 var ch = {};
 
@@ -64,7 +70,7 @@ ch.getFn = function getFn(k, fnPrefix) {
 
 ch.addTodo13 = function addTodo13() {
     ((todos) => {
-        this.setProps({
+        applyToReact.call(this, {
             todos: todos,
             storedTodos: R.pipe(
                 R.concat(storedTodosLens(this)),
@@ -79,7 +85,7 @@ ch.addTodo13 = function addTodo13() {
 
 ch.editTodo13 = function editTodo13(idx) {
     ((todos) => {
-        this.setProps({
+        applyToReact.call(this, {
             todos: todos,
             storedTodos: todos
         });
@@ -94,14 +100,14 @@ ch.editTodo13 = function editTodo13(idx) {
 
 ch.editTodoundefined = function editTodo13(idx, e) {
     e.stopPropagation();
-    this.setProps({
+    applyToReact.call(this, {
         todos: toggleTodoEdit(idx,todosLens(this))
     });
 };
 
 ch.disableEditHandlerInputfalse = function disableEditHandlerInputfalse() {
     ((todos) => {
-        this.setProps({
+        applyToReact.call(this, {
             todos: todos,
             storedTodos: todos
         });
@@ -119,7 +125,7 @@ export function editTodoHandler(idx, e) {
 
 export function deleteTodoHandler(idx) {
     ((todos) => {
-        this.setProps({
+        applyToReact.call(this, {
             todos: todos,
             storedTodos: todos
         });
@@ -128,7 +134,7 @@ export function deleteTodoHandler(idx) {
 
 export function completeTodoHandler(idx) {
     ((todos) => {
-        this.setProps({
+        applyToReact.call(this, {
             todos: todos,
             storedTodos: todos
         });
@@ -136,25 +142,25 @@ export function completeTodoHandler(idx) {
 }
 
 export function showAllTodosHandler() {
-    this.setProps({
+    applyToReact.call(this, {
         todos: storedTodosLens(this)
     });
 }
 
 export function showActiveTodosHandler() {
-    this.setProps({
+    applyToReact.call(this, {
         todos: activeTodos(storedTodosLens(this))
     });
 }
 
 export function showCompletedTodosHandler() {
-    this.setProps({
+    applyToReact.call(this, {
         todos: completedTodos(storedTodosLens(this))
     });
 }
 
 export function showCompletedTodosHandler() {
-    this.setProps({
+    applyToReact.call(this, {
         todos: completedTodos(storedTodosLens(this))
     });
 }
@@ -165,7 +171,7 @@ export function disableEditHandler(e) {
 
 export function clearCompletedHandler() {
     ((todos) => {
-        this.setProps({
+        applyToReact.call(this, {
             todos: todos,
             storedTodos: todos
         });

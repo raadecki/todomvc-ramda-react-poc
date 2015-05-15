@@ -19,12 +19,12 @@ export default React.createClass({
     mixins: [RA.addons.PureRenderMixin],
     propTypes: {
         name: React.PropTypes.string.isRequired,
-        isCompleted: React.PropTypes.bool,
-        isEdited: React.PropTypes.bool,
-        onComplete: React.PropTypes.func,
-        onDelete: React.PropTypes.func,
-        onEdit: React.PropTypes.func,
-        onDisableEditTodo: React.PropTypes.func
+        isCompleted: React.PropTypes.bool.isRequired,
+        isEdited: React.PropTypes.bool.isRequired,
+        onComplete: React.PropTypes.func.isRequired,
+        onDelete: React.PropTypes.func.isRequired,
+        onEdit: React.PropTypes.func.isRequired,
+        onDisableEditTodo: React.PropTypes.func.isRequired
     },
     render: function() {
         return ((editMode) => {

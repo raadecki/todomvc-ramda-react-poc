@@ -3,7 +3,7 @@ import React from 'react';
 export default React.createClass({
     displayName: 'TodoHeader',
     propTypes: {
-        onAddTodo: React.PropTypes.func
+        onAddTodo: React.PropTypes.func.isRequired
     },
     render: function() {
         return (

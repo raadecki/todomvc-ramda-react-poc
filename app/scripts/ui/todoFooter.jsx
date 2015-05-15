@@ -31,13 +31,13 @@ ui.showFooterfalse = function() {
 export default React.createClass({
     displayName: 'TodoFooter',
     propTypes: {
-        activeTodosCount: React.PropTypes.number,
-        hasTodos: React.PropTypes.bool,
-        hasCompleted: React.PropTypes.bool,
-        onShowAll: React.PropTypes.func,
-        onShowActive: React.PropTypes.func,
-        onShowCompleted: React.PropTypes.func,
-        onClearCompleted: React.PropTypes.func
+        activeTodosCount: React.PropTypes.number.isRequired,
+        hasTodos: React.PropTypes.bool.isRequired,
+        hasCompleted: React.PropTypes.bool.isRequired,
+        onShowAll: React.PropTypes.func.isRequired,
+        onShowActive: React.PropTypes.func.isRequired,
+        onShowCompleted: React.PropTypes.func.isRequired,
+        onClearCompleted: React.PropTypes.func.isRequired
     },
     render: function() {
         return ((footer) => {

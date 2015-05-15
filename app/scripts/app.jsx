@@ -13,7 +13,8 @@ import {
     showCompletedTodosHandler,
     disableEditHandler,
     clearCompletedHandler,
-    storedTodosLens
+    storedTodosLens,
+    todosLens
 } from 'handlers/app';
 
 import {
@@ -52,14 +53,14 @@ var App = React.createClass({
                 <TodoList
                     ref="list"
                     context={this}
-                    todos={this.props.todos}
+                    todos={todosLens(this)}
                     onDisableEditTodo={this.onDisableEditTodo}
                     onEditTodo={this.onEditTodo}
                     onDeleteTodo={this.onDeleteTodo}
                     onCompleteTodo={this.onCompleteTodo}
                 />
                 <TodoFooter
-                    hasTodos={this.props.todos.length > 0}
+                    hasTodos={todosLens(this).length > 0}
                     activeTodosCount={activeTodos(storedTodosLens(this)).length}
                     hasCompleted={completedTodos(storedTodosLens(this)).length > 0}
                     onShowAll={this.onShowAll}

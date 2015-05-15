@@ -10,12 +10,12 @@ import {
 export default React.createClass({
     displayName: 'TodoList',
     propTypes: {
-        todos: React.PropTypes.array,
-        context: React.PropTypes.any,
-        onEditTodo: React.PropTypes.func,
-        onDeleteTodo: React.PropTypes.func,
-        onCompleteTodo: React.PropTypes.func,
-        onDisableEditTodo: React.PropTypes.func
+        todos: React.PropTypes.array.isRequired,
+        context: React.PropTypes.any.isRequired,
+        onEditTodo: React.PropTypes.func.isRequired,
+        onDeleteTodo: React.PropTypes.func.isRequired,
+        onCompleteTodo: React.PropTypes.func.isRequired,
+        onDisableEditTodo: React.PropTypes.funcisRequired
     },
     render: function() {
         var items = this.props.todos.map((todo, idx) => {
