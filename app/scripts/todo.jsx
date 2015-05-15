@@ -16,9 +16,9 @@ import {
     todosLens,
     activeStoredTodos,
     completedStoredTodos
-} from 'handlers/app';
+} from 'handlers/todo';
 
-var App = React.createClass({
+var TodoMVC = React.createClass({
     displayName: 'TodoMVC',
     propTypes: {
         todos: React.PropTypes.array,
@@ -73,7 +73,7 @@ var App = React.createClass({
 export default function app(document) {
 
     React.render(
-      <App />,
+      <TodoMVC />,
       document.getElementById('app')
     );
 
