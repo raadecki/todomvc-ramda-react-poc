@@ -72,7 +72,7 @@ ch.addTodo13 = function addTodo13() {
             )(todos)
         });
     })(addTodo(
-        newTodoInputLens(this).getDOMNode().value.trim(),
+        React.findDOMNode(newTodoInputLens(this)).value.trim(),
         todosLens(this)
     ));
 };
@@ -84,7 +84,10 @@ ch.editTodo13 = function editTodo13(idx) {
             storedTodos: todos
         });
     })(R.pipe(
-        updateTodoName(idx,React.findDOMNode(editTodoInputLens(this, idx)).value.trim()),
+        updateTodoName(
+            idx,
+            React.findDOMNode(editTodoInputLens(this, idx)).value.trim()
+        ),
         toggleTodoEdit(idx)
     )(todosLens(this)));
 };
