@@ -9,7 +9,9 @@ import {
     updateTodoName,
     activeTodos,
     completedTodos,
-    disableEditInAllTodos
+    disableEditInAllTodos,
+    activeTodos,
+    completedTodos
 } from 'logic/todo';
 
 var dataLens = R.lensProp('props');
@@ -177,3 +179,13 @@ export function clearCompletedHandler() {
         });
     })(activeTodos(storedTodosLens(this)));
 }
+
+export var activeStoredTodos = R.pipe(
+    storedTodosLens,
+    activeTodos
+);
+
+export var completedStoredTodos = R.pipe(
+    storedTodosLens,
+    activeTodos
+);

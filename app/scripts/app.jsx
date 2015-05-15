@@ -13,14 +13,10 @@ import {
     showCompletedTodosHandler,
     disableEditHandler,
     clearCompletedHandler,
-    storedTodosLens,
-    todosLens
+    todosLens,
+    activeStoredTodos,
+    completedStoredTodos
 } from 'handlers/app';
-
-import {
-    activeTodos,
-    completedTodos
-} from 'logic/todo';
 
 var App = React.createClass({
     displayName: 'TodoMVC',
@@ -61,8 +57,8 @@ var App = React.createClass({
                 />
                 <TodoFooter
                     hasTodos={todosLens(this).length > 0}
-                    activeTodosCount={activeTodos(storedTodosLens(this)).length}
-                    hasCompleted={completedTodos(storedTodosLens(this)).length > 0}
+                    activeTodosCount={activeStoredTodos(this).length}
+                    hasCompleted={completedStoredTodos(this).length > 0}
                     onShowAll={this.onShowAll}
                     onShowActive={this.onShowActive}
                     onShowCompleted={this.onShowCompleted}
