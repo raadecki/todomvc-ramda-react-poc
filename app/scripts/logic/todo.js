@@ -35,8 +35,9 @@ export var addTodo = R.curry((name, todos) => {
 });
 
 export var toggleTodoComplete = R.curry((idx, todos) => {
-    var l = indexCompleteLens(idx);
-    return l.set(!l(todos), todos);
+    return ((l) => {
+        return l.set(!l(todos), todos);
+    })(indexCompleteLens(idx));
 });
 
 export var updateTodoName = R.curry((idx, name, todos) => {
@@ -44,11 +45,12 @@ export var updateTodoName = R.curry((idx, name, todos) => {
 });
 
 export var toggleTodoEdit = R.curry((idx, todos) => {
-    var l = indexEditLens(idx);
-    return R.pipe(
-        disableEditInAllTodos,
-        l.set(!l(todos))
-    )(todos);
+    return ((l) => {
+        return R.pipe(
+            disableEditInAllTodos,
+            l.set(!l(todos))
+        )(todos);
+    })(indexEditLens(idx));
 });
 
 export var deleteTodo = R.pipe(

@@ -40,10 +40,11 @@ export default React.createClass({
         onClearCompleted: React.PropTypes.func
     },
     render: function() {
-        var footer = ui['showFooter'+this.props.hasTodos].call(this);
+        return ((footer) => {
+            return (
+                <div>{footer}</div>
+            );
+        })(ui['showFooter'+this.props.hasTodos].call(this));
 
-        return (
-            <div>{footer}</div>
-        );
     }
 });

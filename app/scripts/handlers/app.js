@@ -1,4 +1,5 @@
 import R from 'ramda';
+import React from 'react';
 
 import {
     addTodo,
@@ -58,54 +59,51 @@ var editTodoInputLens = (obj, idx) => R.pipeL(
 var ch = {};
 
 ch.getFn = function getFn(k, fnPrefix) {
-    return ch[fnPrefix+k] || R.T;
+    return R.either(ch[fnPrefix+k], R.T);
 };
 
 ch.addTodo13 = function addTodo13() {
-    var todos = addTodo(
+    ((todos) => {
+        this.setProps({
+            todos: todos,
+            storedTodos: R.pipe(
+                R.concat(storedTodosLens(this)),
+                R.uniq
+            )(todos)
+        });
+    })(addTodo(
         newTodoInputLens(this).getDOMNode().value.trim(),
         todosLens(this)
-    );
-    this.setProps({
-        todos: todos,
-        storedTodos: R.pipe(
-            R.concat(storedTodosLens(this)),
-            R.uniq
-        )(todos)
-    });
+    ));
 };
 
 ch.editTodo13 = function editTodo13(idx) {
-    var todos = R.pipe(
-        updateTodoName(
-            idx,
-            editTodoInputLens(this, idx).getDOMNode().value.trim()
-        ),
+    ((todos) => {
+        this.setProps({
+            todos: todos,
+            storedTodos: todos
+        });
+    })(R.pipe(
+        updateTodoName(idx,React.findDOMNode(editTodoInputLens(this, idx)).value.trim()),
         toggleTodoEdit(idx)
-    )(todosLens(this));
-
-    this.setProps({
-        todos: todos,
-        storedTodos: todos
-    });
+    )(todosLens(this)));
 };
 
 ch.editTodoundefined = function editTodo13(idx, e) {
     e.stopPropagation();
     this.setProps({
-        todos: toggleTodoEdit(
-            idx,
-            todosLens(this)
-        )
+        todos: toggleTodoEdit(idx,todosLens(this))
     });
 };
 
 ch.disableEditHandlerInputfalse = function disableEditHandlerInputfalse() {
-    var todos = disableEditInAllTodos(storedTodosLens(this));
-    this.setProps({
-        todos: todos,
-        storedTodos: todos
-    });
+    ((todos) => {
+        this.setProps({
+            todos: todos,
+            storedTodos: todos
+        });
+    })(disableEditInAllTodos(storedTodosLens(this)));
+
 };
 
 export function addTodoHandler(e) {
@@ -117,21 +115,21 @@ export function editTodoHandler(idx, e) {
 }
 
 export function deleteTodoHandler(idx) {
-    var todos = deleteTodo(idx, todosLens(this));
-
-    this.setProps({
-        todos: todos,
-        storedTodos: todos
-    });
+    ((todos) => {
+        this.setProps({
+            todos: todos,
+            storedTodos: todos
+        });
+    })(deleteTodo(idx, todosLens(this)));
 }
 
 export function completeTodoHandler(idx) {
-    var todos = toggleTodoComplete(idx, todosLens(this));
-
-    this.setProps({
-        todos: todos,
-        storedTodos: todos
-    });
+    ((todos) => {
+        this.setProps({
+            todos: todos,
+            storedTodos: todos
+        });
+    })(toggleTodoComplete(idx, todosLens(this)));
 }
 
 export function showAllTodosHandler() {
@@ -163,9 +161,10 @@ export function disableEditHandler(e) {
 }
 
 export function clearCompletedHandler() {
-    var todos = activeTodos(storedTodosLens(this));
-    this.setProps({
-        todos: todos,
-        storedTodos: todos
-    });
+    ((todos) => {
+        this.setProps({
+            todos: todos,
+            storedTodos: todos
+        });
+    })(activeTodos(storedTodosLens(this)));
 }

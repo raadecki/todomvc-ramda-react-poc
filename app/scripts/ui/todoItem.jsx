@@ -27,14 +27,15 @@ export default React.createClass({
         onDisableEditTodo: React.PropTypes.func
     },
     render: function() {
-        var editMode = ui['editMode'+this.props.isEdited].call(this);
+        return ((editMode) => {
+            return (
+                <div>
+                    <button onClick={this.props.onComplete}>Complete</button>
+                    {editMode}
+                    <button onClick={this.props.onDelete}>Delete</button>
+                </div>
+            );
+        })(ui['editMode'+this.props.isEdited].call(this));
 
-        return (
-            <div>
-                <button onClick={this.props.onComplete}>Complete</button>
-                {editMode}
-                <button onClick={this.props.onDelete}>Delete</button>
-            </div>
-        );
     }
 });
